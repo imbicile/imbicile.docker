@@ -27,8 +27,8 @@ Codename: focal
 Ставим необходимые пакеты и свежую версию ansible. Так же добавляется в окружение путь `~/.local/bin`
 
 ```bash
-sudo apt install git python3-pip -y
-git clone 
+sudo apt update && sudo apt install git python3-pip -y
+git clone https://github.com/imbicile/imbicile.docker.git
 cd imbicile.docker
 pip3 install -r requirements.txt
 PATH="$HOME/.local/bin:$PATH"
