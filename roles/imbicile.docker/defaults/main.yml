@@ -5,3 +5,10 @@ docker_arch: "amd64"
 
 docker_compose_url: "https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
 docker_compose_path: "/usr/local/bin/docker-compose"
+
+docker_config:
+  bip: "192.168.211.1/24"
+  registry-mirrors:
+    - "https://cr.yandex/mirror"
+    - "https://dh-mirror.gitverse.ru"
+    - "https://dockerhub.timeweb.cloud"

@@ -2,61 +2,27 @@
 # tasks file for imbicile.docker
 
 # prepare install
-- name: prepare install
-  apt:
+- name: Prepare install
+  ansible.builtin.apt:
     pkg:
       - ca-certificates
       - curl
       - gnupg
       - lsb-release
-    update_cache: yes
+    update_cache: true
     state: latest
 
-# add docker repo
-- name: add docker repo key
-  apt_key:
-    url: "https://download.docker.com/linux/ubuntu/gpg"
-    state: present
+# prepare handlers
+- name: Populate service facts
+  ansible.builtin.service_facts:
 
-- name: add docker repo repository
-  apt_repository:
-    repo: "deb [arch={{ docker_arch }}] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_lsb.codename }} stable"
-    filename: "docker"
-    state: present
+# install
+- name: Install config
+  ansible.builtin.include_tasks: config.yml
 
-# install docker
-- name: install docker
-  apt:
-    pkg:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-      - python3-docker
-    update_cache: yes
-    state: latest
+- name: Install docker
+  ansible.builtin.include_tasks: install.yml
 
-# install docker_compose
-- name: install docker_compose
-  get_url:
-    url: "{{ docker_compose_url }}"
-    dest: "{{ docker_compose_path }}"
-    owner: root
-    group: root
-    mode: 0755
-
-# install portainer
-- name: create a volume
-  community.docker.docker_volume:
-    name: portainer_data
-
-- name: install portainer
-  community.docker.docker_container:
-    name: portainer
-    image: portainer/portainer-ce
-    restart_policy: always
-    ports:
-      - "8000:8000"
-      - "9443:9443"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "portainer_data:/data"
+# containers
+- name: Install containers
+  ansible.builtin.include_tasks: container.yml

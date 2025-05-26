@@ -1,2 +1,4 @@
-ansible==5.2.0
-ansible-core==2.12.1
+ansible
+ansible-compat
+ansible-core
+ansible-lint
