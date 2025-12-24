@@ -1,0 +1,12 @@
+---
+- name: Local env
+  hosts: 127.0.0.1
+  connection: local
+  become: true
+
+  vars:
+    docker_portainer: true
+
+  roles:
+    - role: imbicile.docker
+      tags: docker
