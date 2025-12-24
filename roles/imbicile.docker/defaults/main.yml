@@ -3,12 +3,35 @@
 
 docker_arch: "amd64"
 
-docker_compose_url: "https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
-docker_compose_path: "/usr/local/bin/docker-compose"
-
 docker_config:
   bip: "192.168.211.1/24"
   registry-mirrors:
     - "https://cr.yandex/mirror"
     - "https://dh-mirror.gitverse.ru"
     - "https://dockerhub.timeweb.cloud"
+  dns:
+    - 77.88.8.8
+    - 77.88.8.1
+  dns-opts:
+    - timeout:2
+    - attempts:3
+  data-root: /var/lib/docker/
+  log-driver: json-file
+  log-opts:
+    max-size: 10m
+    max-file: "3"
+    compress: "true"
+  live-restore: true
+  icc: false
+  userland-proxy: false
+  max-concurrent-downloads: 3
+  max-concurrent-uploads: 3
+  default-ulimits:
+    nofile:
+      Name: nofile
+      Hard: 64000
+      Soft: 64000
+
+docker_portainer: false
+docker_portainer_network: 192.168.212.0/30
+docker_portainer_gateway: 192.168.212.1

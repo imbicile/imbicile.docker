@@ -2,11 +2,35 @@
 
 Установка docker
 
-```yml
-- hosts: docker_servers
+```yaml
+- name: Install Docker
+  hosts:
+    - all
   become: true
+
+  vars:
+    docker_portainer: true
+
   roles:
-    - { role: imbicile.docker, tags: docker }
+    - role: imbicile.docker
+      tags: docker
+```
+
+Пример контейнера
+
+```yaml
+# install rabbitmq
+- name: Install rabbitmq
+  community.docker.docker_container:
+    name: rabbitmq
+    image: rabbitmq:3.9-management
+    restart_policy: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    env:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "password"
 ```
 
 ## Переменные
@@ -23,6 +47,8 @@ docker_config:
     - "https://dh-mirror.gitverse.ru"
     - "https://dockerhub.timeweb.cloud"
 ```
+
+`docker_portainer` - установка portainer когда значение **true**
 
 ### Список зеркал
 

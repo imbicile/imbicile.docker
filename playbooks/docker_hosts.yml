@@ -1,19 +1,26 @@
-- hosts: docker_servers
+- name: Install Docker
+  hosts:
+    - all
   become: true
-  roles:
-    - { role: imbicile.docker, tags: docker }
 
-# # Example
-# tasks:
-#   # install rabbitmq
-#   - name: install rabbitmq
-#     community.docker.docker_container:
-#       name: rabbitmq
-#       image: rabbitmq:3.9-management
-#       restart_policy: always
-#       ports:
-#         - "5672:5672"
-#         - "15672:15672"
-#       env:
-#         RABBITMQ_DEFAULT_USER: "admin"
-#         RABBITMQ_DEFAULT_PASS: "password"
+  vars:
+    docker_portainer: true
+
+  roles:
+    - role: imbicile.docker
+      tags: docker
+
+  # # Example
+  # tasks:
+  #   # install rabbitmq
+  #   - name: install rabbitmq
+  #     community.docker.docker_container:
+  #       name: rabbitmq
+  #       image: rabbitmq:3.9-management
+  #       restart_policy: always
+  #       ports:
+  #         - "5672:5672"
+  #         - "15672:15672"
+  #       env:
+  #         RABBITMQ_DEFAULT_USER: "admin"
+  #         RABBITMQ_DEFAULT_PASS: "password"

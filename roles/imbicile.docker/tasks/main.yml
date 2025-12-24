@@ -23,6 +23,6 @@
 - name: Install docker
   ansible.builtin.include_tasks: install.yml
 
-# containers
-- name: Install containers
-  ansible.builtin.include_tasks: container.yml
+- name: Install portainer
+  when: "{{docker_portainer}}"
+  ansible.builtin.include_tasks: portainer.yml
