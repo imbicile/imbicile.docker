@@ -1,5 +1,5 @@
 ---
-- name: Local env
+- name: Local install
   hosts: 127.0.0.1
   connection: local
   become: true
