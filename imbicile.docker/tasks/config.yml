@@ -1,0 +1,13 @@
+- name: Create directory
+  ansible.builtin.file:
+    path: "/etc/docker"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Create config
+  ansible.builtin.copy:
+    dest: "/etc/docker/daemon.json"
+    content: "{{ docker_config | to_json(indent=2, sort_keys=True) }}"
+  notify: Restart docker

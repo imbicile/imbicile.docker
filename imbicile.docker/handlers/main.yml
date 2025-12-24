@@ -1,0 +1,10 @@
+---
+# handlers file for imbicile.docker
+
+- name: Restart docker
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+    name: docker
+    state: restarted
+  when: ansible_facts['services']['docker.service']['status'] | default('not-found') != 'not-found'
