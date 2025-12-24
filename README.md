@@ -47,3 +47,10 @@ ansible-playbook playbooks/docker_local.yml
 ```bash
  ansible-playbook playbooks/docker_hosts.yml
 ```
+
+ansible-pull
+
+```bash
+sudo apt install ansible -y
+ansible-pull -U https://github.com/imbicile/imbicile.docker.git
+```
